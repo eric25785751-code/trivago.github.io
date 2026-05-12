@@ -1,8 +1,3 @@
-from weasyprint import HTML
-import base64
-
-# --- HTML/CSS for PDF Report ---
-report_html = """
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
@@ -263,16 +258,3 @@ sales_page = """
     </div>
 </body>
 </html>
-"""
-
-# Generate PDF file
-HTML(string=report_html).write_pdf("trivago_marketing_strategy.pdf")
-
-# Save HTML files
-with open("lead_generation.html", "w", encoding="utf-8") as f:
-    f.write(lead_gen_page)
-
-with open("sales_pages.html", "w", encoding="utf-8") as f:
-    f.write(sales_page)
-
-print("Files generated successfully.")
