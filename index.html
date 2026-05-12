@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>trivago 自動化行銷完整企劃書</title>
+    <title>trivago 自動化行銷企劃 - 架構篇</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { font-family: "PingFang TC", "Microsoft JhengHei", sans-serif; background-color: #f4f7f9; }
         .trivago-blue { color: #007faf; }
-        .trivago-bg-blue { background-color: #007faf; }
         .trivago-orange { background-color: #ff7043; }
         .section-card { background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 2rem; padding: 2rem; }
         .wireframe-box { border: 2px solid #333; background: #fff; padding: 10px; font-family: monospace; }
@@ -16,118 +15,43 @@
     </style>
 </head>
 <body class="p-4 md:p-10">
-
-    <div class="max-w-5xl mx-auto">
+    <div class="max-w-4xl mx-auto">
         <header class="text-center mb-12 border-b-4 border-[#007faf] pb-6">
-            <h1 class="text-4xl font-extrabold trivago-blue mb-2">trivago 自動化行銷完整企劃書</h1>
-            <p class="text-gray-600">電子商務流程設計與網頁結構圖</p>
+            <h1 class="text-3xl font-extrabold trivago-blue mb-2">trivago 自動化行銷企劃 - 架構篇</h1>
+            <p class="text-gray-600">包含名單蒐集頁設計、搜尋結果頁與互動功能</p>
         </header>
 
-        <!-- 1. TA 分析 -->
+        <!-- 3. 名單蒐集頁實作 -->
         <section class="section-card">
-            <h2 class="text-2xl font-bold trivago-blue mb-6 border-l-8 border-[#ff7043] pl-4">1. TA 目標客群分析</h2>
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                    <b class="text-[#ff7043] block mb-2">小資上班族</b>
-                    <p class="text-sm text-gray-600">追求高 CP 值。痛點：預算有限、擔心訂貴、對價格波動極度敏感。[cite: 1]</p>
-                </div>
-                <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                    <b class="text-[#ff7043] block mb-2">家庭旅遊規劃者</b>
-                    <p class="text-sm text-gray-600">重視設施與空間。痛點：篩選耗時、需要確保多人入住的舒適與安全性。[cite: 1]</p>
-                </div>
-                <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                    <b class="text-[#ff7043] block mb-2">數位遊牧民族</b>
-                    <p class="text-sm text-gray-600">長期住宿需求。痛點：普通飯店太貴、需要穩定的 WiFi 與廚房機能。[cite: 1]</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- 2. 免費贈品設計 -->
-        <section class="section-card">
-            <h2 class="text-2xl font-bold trivago-blue mb-6 border-l-8 border-[#ff7043] pl-4">2. 免費贈品設計 (Lead Magnet)</h2>
-            <div class="bg-blue-50 p-4 rounded-lg">
-                <p class="text-gray-700 font-bold mb-2">主要贈品：</p>
-                <p class="text-sm text-gray-600">提供《2026 全球訂房省錢攻略：揭開訂房網隱藏價差的 30% 秘密》PDF 手冊。[cite: 1, 2]</p>
-            </div>
-        </section>
-
-        <!-- 3-4. 自動化流程 -->
-        <section class="section-card">
-            <h2 class="text-2xl font-bold trivago-blue mb-6 border-l-8 border-[#ff7043] pl-4">3 & 4. 名單蒐集與自動化郵件流程</h2>
-            <div class="space-y-3">
-                <div class="p-3 bg-white border rounded-lg flex items-center gap-4 text-sm text-gray-600">
-                    <span class="trivago-bg-blue text-white px-2 py-1 rounded">Day 0</span>
-                    自動發送領取確認信與贈品下載連結。[cite: 1]
-                </div>
-                <div class="p-3 bg-white border rounded-lg flex items-center gap-4 text-sm text-gray-600">
-                    <span class="trivago-bg-blue text-white px-2 py-1 rounded">Day 2</span>
-                    價值傳遞：分享如何識別飯店真實評價的技巧。[cite: 1, 2]
-                </div>
-                <div class="p-3 bg-white border rounded-lg flex items-center gap-4 text-sm text-gray-600">
-                    <span class="trivago-bg-blue text-white px-2 py-1 rounded">Day 7</span>
-                    銷售轉化：針對用戶感興趣的目的地推薦限時優惠。[cite: 1]
-                </div>
-            </div>
-        </section>
-
-        <!-- 5. 銷售頁類別 -->
-        <section class="section-card">
-            <h2 class="text-2xl font-bold trivago-blue mb-6 border-l-8 border-[#ff7043] pl-4">5. 銷售頁設計 (3 種類別)</h2>
-            <div class="grid grid-cols-3 gap-4 text-center text-sm font-bold">
-                <div class="p-4 border rounded bg-gray-50">超值省錢版</div>
-                <div class="p-4 border rounded bg-gray-50">奢華假期版</div>
-                <div class="p-4 border rounded bg-gray-50">在地特色版</div>
-            </div>
-        </section>
-
-        <!-- 6. 廣告文案 -->
-        <section class="section-card">
-            <h2 class="text-2xl font-bold trivago-blue mb-6 border-l-8 border-[#ff7043] pl-4">6. 廣告引流文案</h2>
-            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 text-gray-700 italic text-sm">
-                「住同一間房，隔壁旅客卻便宜了 $2,000 元？🤔 trivago 幫你一秒掃描全網報價。點擊領取《2026 訂房省錢指南》！」[cite: 1, 3]
-            </div>
-        </section>
-
-        <!-- 7. 結構圖 -->
-        <section class="section-card">
-            <h2 class="text-2xl font-bold trivago-blue mb-6 border-l-8 border-[#ff7043] pl-4">7. 名單蒐集頁與銷售頁結構圖</h2>
-            
-            <h3 class="font-bold mb-4 text-gray-700 underline">名單蒐集頁 (Landing Page)</h3>
-            <div class="wireframe-box mb-8">
-                <div class="bg-blue-600 text-white p-2 text-center text-xs font-bold mb-2">trivago Exclusive Offer</div>
-                <div class="border-2 border-dashed border-gray-300 p-8 text-center mb-4">
-                    <h4 class="text-lg font-black mb-2 leading-tight">揭開訂房網「隱藏價差」的 30% 省錢秘密</h4>
-                    <p class="text-xs text-gray-500 mb-6">免費領取全球旅客都在用的比價手冊</p>
+            <h2 class="text-2xl font-bold trivago-blue mb-6 border-l-8 border-[#ff7043] pl-4">3. 名單蒐集頁 (Landing Page)</h2>
+            <div class="wireframe-box mb-4">
+                <div class="bg-blue-600 text-white p-2 text-center text-xs font-bold mb-2 tracking-widest uppercase">trivago Exclusive Offer</div>
+                <div class="border-2 border-dashed border-gray-300 p-8 text-center">
+                    <h3 class="text-lg font-black mb-2">揭開訂房網「隱藏價差」的 30% 省錢秘密</h3>
+                    <p class="text-[10px] text-gray-500 mb-6">輸入 Email 立即獲取 2026 終極手冊</p>
                     
                     <form action="https://www.trivago.com" class="w-2/3 mx-auto space-y-2">
-                        <input type="email" placeholder="Email" required class="w-full border p-2 text-[10px] focus:outline-none focus:ring-1 focus:ring-blue-500">
-                        <select class="w-full border p-2 text-[10px] bg-white">
-                            <option>日本</option>
-                            <option>歐洲</option>
-                            <option>東南亞</option>
-                        </select>
-                        <button type="submit" class="w-full bg-orange-500 text-white p-2 text-[12px] font-bold btn-hover">
+                        <input type="email" placeholder="您的 Email" required class="w-full border p-2 text-[10px] focus:ring-1 focus:ring-blue-500 outline-none">
+                        <button type="submit" class="w-full bg-orange-500 text-white p-2 text-[12px] font-bold btn-hover transition shadow-md">
                             立即免費下載 PDF 手冊
                         </button>
                     </form>
-                </div>
-                <div class="flex justify-between text-[10px] text-gray-400 px-4">
-                    <span>★ Google Play 4.7</span>
-                    <span>已有 150,000+ 旅客下載</span>
-                    <span>★ App Store 4.8</span>
+                    <p class="text-[9px] text-gray-400 mt-4">已有 150,000+ 旅客成功下載[cite: 2]</p>
                 </div>
             </div>
+        </section>
 
-            <h3 class="font-bold mb-4 text-gray-700 underline">銷售結果頁 (Sales/Result Page)</h3>
+        <!-- 7. 銷售頁結構圖實作 -->
+        <section class="section-card">
+            <h2 class="text-2xl font-bold trivago-blue mb-6 border-l-8 border-[#ff7043] pl-4">7. 銷售結果頁 (Sales/Result Page)</h2>
             <div class="wireframe-box">
                 <div class="bg-blue-800 text-white p-2 text-xs flex justify-between items-center">
                     <span>trivago</span>
-                    <div class="bg-white/20 px-2 py-0.5 rounded text-[10px]">搜尋: 目的地, 日期...</div>
+                    <div class="bg-white/20 px-2 py-0.5 rounded text-[10px]">搜尋目的地...</div>
                 </div>
                 <div class="flex gap-2 mt-2">
-                    <div class="w-1/4 bg-gray-50 border p-2 text-[10px] space-y-1">
-                        <b>過濾條件</b>
-                        <div class="h-1 w-full bg-gray-200"></div>
+                    <div class="w-1/4 bg-gray-50 border p-2 text-[10px] space-y-2">
+                        <b>過濾條件[cite: 1, 3]</b>
                         <div class="h-1 w-full bg-gray-200"></div>
                         <div class="h-1 w-2/3 bg-gray-200"></div>
                     </div>
@@ -135,10 +59,10 @@
                         <div class="border p-2 text-[10px] flex gap-2">
                             <div class="w-1/3 h-16 bg-gray-200 flex items-center justify-center text-gray-400">飯店照片</div>
                             <div class="w-2/3">
-                                <b class="text-blue-600 text-[12px]">飯店名稱 A</b> (4.5★)<br>
-                                旅客評分：非常好 8.9<br>
-                                <span class="text-red-500 font-bold block mt-1 text-[11px]">最低價：$2,400 (供應商 A)</span>
-                                <a href="https://www.trivago.com" target="_blank" class="inline-block bg-orange-500 text-white w-20 text-center mt-1 py-1 rounded font-bold btn-hover no-underline">查看交易</a>
+                                <b class="text-blue-600 text-[11px]">理想精品飯店 A</b><br>
+                                評分：非常好 8.9[cite: 3]<br>
+                                <span class="text-red-500 font-bold block mt-1 text-[11px]">最低價：$2,400 (Agoda)</span>
+                                <a href="https://www.trivago.com" target="_blank" class="inline-block bg-orange-500 text-white w-20 text-center mt-1 py-1 rounded font-bold btn-hover no-underline shadow-sm">查看交易</a>
                             </div>
                         </div>
                     </div>
@@ -147,9 +71,8 @@
         </section>
 
         <footer class="text-center text-gray-400 text-[10px] mt-10">
-            © 2026 trivago 自動化行銷策略企劃
+            © 2026 trivago 自動化行銷架構企劃
         </footer>
     </div>
-
 </body>
 </html>
