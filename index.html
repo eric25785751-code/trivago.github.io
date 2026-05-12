@@ -1,0 +1,278 @@
+from weasyprint import HTML
+import base64
+
+# --- HTML/CSS for PDF Report ---
+report_html = """
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        @page {
+            size: A4;
+            margin: 15mm 12mm;
+            background-color: #ffffff;
+        }
+        body {
+            font-family: "Microsoft JhengHei", "PingFang TC", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #007FAF;
+            color: white;
+            padding: 30px;
+            margin: -15mm -12mm 20px -12mm;
+            text-align: center;
+        }
+        .header h1 { margin: 0; font-size: 24pt; }
+        .header p { margin: 5px 0 0 0; opacity: 0.9; }
+        
+        h2 {
+            color: #007FAF;
+            border-left: 5px solid #F28B01;
+            padding-left: 10px;
+            margin-top: 25px;
+            font-size: 16pt;
+        }
+        h3 {
+            color: #C94A38;
+            font-size: 13pt;
+            margin-top: 20px;
+        }
+        .section { margin-bottom: 30px; }
+        .box {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .email-content {
+            font-family: monospace;
+            background-color: #f0f0f0;
+            padding: 15px;
+            white-space: pre-wrap;
+            font-size: 10pt;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th { background-color: #eee; }
+        .footer {
+            text-align: center;
+            font-size: 9pt;
+            color: #888;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Trivago 自動化行銷企劃案</h1>
+        <p>全方位電商導流與名單變現流程設計</p>
+    </div>
+
+    <div class="section">
+        <h2>1. TA 受眾深度分析</h2>
+        <table>
+            <tr>
+                <th>受眾類別</th>
+                <th>核心痛點</th>
+                <th>行銷訴求</th>
+            </tr>
+            <tr>
+                <td><b>小資自由行</b></td>
+                <td>預算極其敏感，擔心買貴</td>
+                <td>「全網最低價」與「省錢攻略」</td>
+            </tr>
+            <tr>
+                <td><b>親子家庭客</b></td>
+                <td>找房耗時，擔心設施不全</td>
+                <td>「一鍵篩選兒童設施」與「安心評價」</td>
+            </tr>
+            <tr>
+                <td><b>商務差旅人</b></td>
+                <td>效率至上，報帳流程繁瑣</td>
+                <td>「快速查價」與「交通便利精選」</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>2. 免費贈品與廣告文案</h2>
+        <div class="box">
+            <strong>贈品名稱：</strong>《2026 飯店比價終極攻略：如何透過 Trivago 每年省下 1 萬住宿費》<br>
+            <strong>廣告引流文案：</strong><br>
+            【標題】別再當冤大頭！一樣的房間，為什麼你多付了 $1,500？<br>
+            【內文】你以為直接在訂房網訂最便宜？錯！利用 Trivago 隱藏過濾功能，小資族也能住進五星級。立即下載 PDF，解鎖業界不說的省錢秘密！
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>3. 自動化信件腳本 (5 天序列)</h2>
+        <div class="box">
+            <h3>Day 1: 贈品交付</h3>
+            <div class="email-content">主旨：🎁 您申請的《比價攻略》PDF 已經送達！
+內容：哈囉！我是您的旅遊省錢小助手。這裡是您索取的電子書... [下載連結]</div>
+            
+            <h3>Day 3: 價值建立</h3>
+            <div class="email-content">主旨：想去日本/泰國？這 3 個訂房雷區千萬別踩
+內容：很多人只看價格，卻忽略了「含稅金」與「含早餐」的價差...</div>
+            
+            <h3>Day 5: 促購轉換</h3>
+            <div class="email-content">主旨：週末連假將至！看看我們為您挑選的激省房源
+內容：根據您的喜好，我們在 Trivago 上篩選了幾間 CP 值爆表的選擇... [查看清單]</div>
+        </div>
+    </div>
+
+    <div class="footer">
+        © 2026 數位轉型行銷顧問服務 - 專為 Trivago 流程設計
+    </div>
+</body>
+</html>
+"""
+
+# --- HTML/CSS for Lead Generation Page (Ready to use) ---
+lead_gen_page = """
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>免費領取飯店比價攻略 - Trivago 行銷專案</title>
+    <style>
+        body { font-family: sans-serif; margin: 0; background-color: #f4f7f6; color: #333; }
+        .container { max-width: 800px; margin: 50px auto; background: #fff; padding: 40px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; }
+        .brand { color: #007FAF; font-size: 2em; font-weight: bold; margin-bottom: 20px; }
+        h1 { color: #C94A38; font-size: 2.2em; line-height: 1.2; }
+        .sub { font-size: 1.2em; color: #666; margin-bottom: 30px; }
+        .mockup { width: 250px; height: 350px; background: linear-gradient(135deg, #007FAF, #005f83); color: white; margin: 0 auto 30px; display: flex; align-items: center; justify-content: center; border-radius: 5px; box-shadow: 10px 10px 20px rgba(0,0,0,0.2); transform: rotate(-5deg); }
+        form { display: flex; flex-direction: column; gap: 15px; max-width: 400px; margin: 0 auto; }
+        input, select { padding: 12px; border: 1px solid #ddd; border-radius: 5px; font-size: 1em; }
+        button { padding: 15px; background: #F28B01; color: white; border: none; border-radius: 5px; font-size: 1.2em; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        button:hover { background: #d67a00; transform: scale(1.02); }
+        .footer { margin-top: 40px; font-size: 0.8em; color: #999; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="brand">trivago <span style="font-weight:normal; font-size: 0.6em; color: #888;">| 行銷特別版</span></div>
+        <h1>每次訂房都覺得買貴了？</h1>
+        <p class="sub">立即下載《2026 飯店比價終極攻略》，幫你下趟旅程省下 20% 以上費用！</p>
+        
+        <div class="mockup">
+            <div style="padding: 20px;">
+                <p style="font-size: 1.5em; font-weight: bold;">飯店比價<br>終極攻略</p>
+                <p style="font-size: 0.8em;">PDF 電子書 + 影片</p>
+            </div>
+        </div>
+
+        <form action="#">
+            <input type="text" placeholder="您的姓名" required>
+            <input type="email" placeholder="您的常用 Email" required>
+            <select>
+                <option value="">請選擇您的旅遊偏好</option>
+                <option value="budget">小資自由行</option>
+                <option value="family">溫馨家庭遊</option>
+                <option value="luxury">豪華度假風</option>
+            </select>
+            <button type="submit">立即免費領取攻略 👉</button>
+        </form>
+        <p style="font-size: 0.8em; color: #888; margin-top: 15px;">我們保證不會發送垃圾郵件，您可以隨時取消訂閱。</p>
+        
+        <div class="footer">本頁面僅供 Trivago 自動化行銷流程設計展示</div>
+    </div>
+</body>
+</html>
+"""
+
+# --- HTML/CSS for Sales Page (Dashboard) ---
+sales_page = """
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>精選住宿企劃 - Trivago</title>
+    <style>
+        body { font-family: sans-serif; margin: 0; background: #f0f2f5; }
+        nav { background: #007FAF; color: white; padding: 15px; text-align: center; position: sticky; top: 0; z-index: 100; }
+        .hero { background: white; padding: 60px 20px; text-align: center; }
+        h1 { font-size: 2.5em; color: #333; }
+        .grid { display: block; max-width: 1000px; margin: -50px auto 50px; }
+        .card { background: white; border-radius: 10px; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); overflow: hidden; display: table; width: 100%; }
+        .card-img { width: 40%; display: table-cell; background-size: cover; background-position: center; min-height: 250px; }
+        .card-body { width: 60%; display: table-cell; padding: 30px; vertical-align: middle; }
+        .tag { display: inline-block; padding: 5px 12px; border-radius: 20px; font-size: 0.8em; font-weight: bold; margin-bottom: 10px; }
+        .tag-a { background: #e1f5fe; color: #01579b; }
+        .tag-b { background: #fff3e0; color: #e65100; }
+        .tag-c { background: #f1f8e9; color: #33691e; }
+        h2 { margin: 0 0 10px 0; color: #222; }
+        p { color: #666; font-size: 0.95em; line-height: 1.5; }
+        .btn { display: inline-block; margin-top: 20px; padding: 12px 25px; background: #C94A38; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; }
+        .btn:hover { opacity: 0.9; }
+    </style>
+</head>
+<body>
+    <nav>Trivago 精選住宿企劃 - 幫您找到最合適的飯店</nav>
+    <div class="hero">
+        <h1>專屬於您的旅遊方案</h1>
+        <p>根據您的需求，我們在全球比價網中過濾出以下最優質的選擇</p>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1555854816-802f188095e4?auto=format&fit=crop&w=400&q=80')"></div>
+            <div class="card-body">
+                <span class="tag tag-a">週末快閃激省</span>
+                <h2>極簡、乾淨、超平價</h2>
+                <p>專為獨行旅客與小資族設計，精選交通節點旁的優質青年旅館與商務旅館。價格均控制在台幣 1,500 元以內。</p>
+                <a href="https://www.trivago.com.tw" class="btn">立即搜尋最低價</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=400&q=80')"></div>
+            <div class="card-body">
+                <span class="tag tag-b">奢華五星精選</span>
+                <h2>享受生活，從頂級住宿開始</h2>
+                <p>無邊際泳池、私人管家、頂級餐飲。我們為您在各平台中找出折扣最大的五星級飯店，讓奢華變得觸手可及。</p>
+                <a href="https://www.trivago.com.tw" class="btn">領取隱藏版折扣</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=400&q=80')"></div>
+            <div class="card-body">
+                <span class="tag tag-c">溫馨親子友善</span>
+                <h2>給孩子最棒的童年旅行</h2>
+                <p>具備遊戲室、兒童戲水區及大空間家庭房。所有飯店均經過高標準衛生篩選，讓全家人住得安心、玩得開心。</p>
+                <a href="https://www.trivago.com.tw" class="btn">查看家庭房優惠</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+"""
+
+# Generate PDF file
+HTML(string=report_html).write_pdf("trivago_marketing_strategy.pdf")
+
+# Save HTML files
+with open("lead_generation.html", "w", encoding="utf-8") as f:
+    f.write(lead_gen_page)
+
+with open("sales_pages.html", "w", encoding="utf-8") as f:
+    f.write(sales_page)
+
+print("Files generated successfully.")
